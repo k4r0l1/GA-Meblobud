@@ -1,0 +1,73 @@
+// assets/scss/_contact.scss
+@use 'variables' as v;
+@use 'sass:color';
+
+#contact { // Changed from .contact
+  padding: 4rem 0; // Adjusted to match
+  background-image: v.$bg-image;
+
+  .container {
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem; // Adjusted
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+      color: #666; // Matches original
+      margin-bottom: 2rem;
+      &.intro {
+        font-size: 1.1rem;
+        margin: 0.5rem 0;
+      }
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+
+      .form-control { // Matches original
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 1rem;
+        width: 100%;
+        font-size: 1rem;
+        &:focus {
+          border-color: v.$primary-color;
+          box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+      }
+
+      .btn-primary {
+        background-color: v.$primary-color;
+        border: none;
+        padding: 10px 25px; // Adjusted to match hero/contact buttons
+        font-size: 1.1rem;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+        display: block;
+        transition: background-color 0.3s ease;
+        &:hover {
+          background-color: color.adjust(v.$primary-color, $lightness: -10%);
+        }
+      }
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+      a {
+        color: v.$primary-color;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

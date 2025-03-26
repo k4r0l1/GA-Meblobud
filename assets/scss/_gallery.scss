@@ -1,0 +1,54 @@
+// KB 2025
+
+@use 'variables' as v;
+
+.album {
+  padding: 5rem 0;
+  &.bg-body-tertiary {
+    background-image: v.$bg-image;
+  }
+
+  &.py-5 {
+    padding-top: 0 !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .card {
+    height: 100%;
+    box-shadow: v.$shadow;
+    .card-img-top {
+      width: 100%;
+      height: 225px;
+      object-fit: cover;
+    }
+    .card-body {
+      padding: 1rem;
+      .card-text {
+        margin-bottom: 0.5rem;
+      }
+      .btn-group {
+        .btn-sm {
+          font-size: 0.875rem;
+          &.btn-outline-secondary {
+            border-color: v.$text-color;
+            color: v.$text-color;
+            &:hover {
+              background-color: v.$primary-color;
+              color: v.$light-text;
+            }
+          }
+        }
+      }
+    }
+  }
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    user-select: none;
+    @media (min-width: 768px) {
+      &.bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  }
+}

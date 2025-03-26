@@ -1,0 +1,19 @@
+// assets/scss/main.scss
+@use 'variables' as v;
+@use 'navbar';
+@use 'hero';
+@use 'work';
+@use 'about';
+@use 'contact';
+@use 'gallery';
+@use 'privacy';
+@use 'footer';
+@use 'cookieconsent';
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: v.$light-bg;
+  color: v.$text-color;
+}

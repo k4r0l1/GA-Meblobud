@@ -1,0 +1,29 @@
+// KB 2025
+
+@use 'variables' as v;
+@use 'sass:color';
+
+section.text-center {
+  &.py-3 {
+    padding: 3rem 1rem;
+    &.pb-5 {
+      padding-bottom: 5rem;
+    }
+    h2.h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      a.link-secondary {
+        color: color.adjust(v.$primary-color, $lightness: -20%);
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

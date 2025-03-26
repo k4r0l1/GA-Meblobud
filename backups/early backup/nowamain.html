@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>Meble na wymiar - Pomorskie - GA Meblobud</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Meble na wymiar, kuchnie i remonty w województwie pomorskim. Skontaktuj się z GA Meblobud już dziś!" />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+            padding-top: 60px; /* Offset for fixed navbar */
+        }
+        /* Navbar */
+        .navbar {
+            background-color: #2c3e50;
+            padding: 10px 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center navbar items on desktop */
+            flex-wrap: nowrap;
+        }
+        .navbar-nav {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 0 auto; /* Center the nav items */
+        }
+        .navbar-nav .nav-link {
+            color: #ecf0f1;
+            font-weight: 400;
+            padding: 8px 12px;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            white-space: nowrap;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #3498db;
+        }
+        .navbar-toggler {
+            border: none;
+            padding: 5px 10px;
+            background: none;
+        }
+        .contact-info {
+            background-color: #34495e;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9rem;
+            border-top: 1px solid #2c3e50;
+            width: 100%;
+            display: none; /* Hidden by default */
+        }
+        .navbar-collapse {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #34495e;
+            z-index: 1000;
+        }
+        .carousel-indicators [data-bs-target] {
+            width: 10px;
+            height: 10px;
+            background-color: #0000008e;
+        }
+        @media (max-width: 991.98px) {
+            .navbar .container {
+                justify-content: space-between; /* Reset to space-between on mobile */
+            }
+            .navbar-nav {
+                margin: 0; /* Reset margin on mobile */
+            }
+            .navbar-nav .nav-link {
+                padding: 5px 8px;
+                font-size: 0.9rem;
+            }
+            .contact-info {
+                display: block; /* Show on mobile when toggled */
+            }
+        }
+        @media (min-width: 992px) {
+            .contact-info {
+                display: none !important; /* Ensure hidden on desktop */
+            }
+            .navbar .container {
+                justify-content: center; /* Keep centered on desktop */
+            }
+        }
+        /* Hero Section */
+        #top {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/assets/css/images/background.webp') center center / cover no-repeat;
+            color: #fff;
+            text-align: center;
+            padding: 6rem 1rem;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #top h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        #top p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+        /* Work Section */
+        #work {
+            padding: 4rem 0;
+            background-color: #fff;
+        }
+        #work h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        #work p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+        .work-grid .card {
+            border: none;
+            text-align: center;
+            transition: transform 0.3s ease;
+            background: transparent;
+        }
+        .work-grid .card:hover {
+            transform: translateY(-5px);
+        }
+        .work-grid .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: none; 
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        .work-grid .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 1rem 0 0.5rem;
+        }
+        .work-grid .card-text {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        .carousel {
+            display: none;
+        }
+        @media (max-width: 767.98px) {
+            .work-grid {
+                display: none;
+            }
+            .carousel {
+                display: block;
+            }
+            .carousel-item .card {
+                border: none;
+                text-align: center;
+                max-width: 300px;
+                margin: 0 auto;
+                position: relative; /* For positioning pagination */
+            }
+            .carousel-item .card img {
+                width: 100%;
+                height: 200px;
+                object-fit: contain; /* Changed from object-fit: none to object-fit: contain */
+                border-radius: 8px;
+            }
+            /* Customize carousel navigation buttons */
+            .carousel-control-prev,
+            .carousel-control-next {
+                filter: invert(0); /* Reset invert if applied */
+                background-color: #3498db; /* Match gallery button blue */
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                opacity: 0.8;
+                top: 50%; /* Center vertically relative to the carousel */
+                transform: translateY(-50%); /* Adjust for the button's own height */
+            }
+            .carousel-control-prev:hover,
+            .carousel-control-next:hover {
+                background-color: #2980b9; /* Hover color */
+                opacity: 1;
+            }
+            .carousel-control-prev-icon,
+            .carousel-control-next-icon {
+                background-color: transparent; /* Ensure icons are visible */
+            }
+            /* Customize carousel indicators (pagination) */
+            .carousel-indicators {
+                position: absolute;
+                top: -40px; /* Position above the carousel tiles */
+                bottom: auto; /* Override default bottom positioning */
+                margin-bottom: 0; /* Remove default margin */
+            }
+            .carousel-indicators button {
+                background-color: #ccc; /* Default color for inactive dots */
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                border: none;
+                margin: 0 5px;
+                opacity: 0.5;
+            }
+            .carousel-indicators .active {
+                background-color: #3498db; /* Active dot color matches gallery button */
+                opacity: 1;
+            }
+            .carousel-indicators button:hover {
+                background-color: #2980b9; /* Hover color */
+                opacity: 1;
+            }
+        }
+        /* About, Contact Sections */
+        #o-nas {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        #o-nas h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        #o-nas p {
+            font-size: 1rem;
+            max-width: 800px;
+            margin: 0 auto 1rem;
+        }
+        #o-nas a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        #o-nas a:hover {
+            text-decoration: underline;
+        }
+        #contact {
+            padding: 4rem 0;
+            background-color: #fff;
+        }
+        #contact h2 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        #contact p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        #contact .intro {
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+        }
+        #contact form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #contact .form-control {
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 1rem;
+        }
+        #contact .form-control:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+        #contact .btn-primary {
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto;
+            display: block;
+        }
+        #contact footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        #contact footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        #contact footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="#top">Powrót</a></li>
+                <li class="nav-item"><a class="nav-link" href="#work">Galeria Projektów</a></li>
+                <li class="nav-item"><a class="nav-link" href="#o-nas">O Nas</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Kontakt</a></li>
+            </ul>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#contactInfo" aria-controls="contactInfo" aria-expanded="false" aria-label="Toggle contact info">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="contactInfo">
+                <div class="contact-info">
+                    <p>✆ (+48) 505 705 338</p>
+                    <p>✉ info@ga-meblobud.pl</p>
+                    <p>Pinczyn 83-251, Starogard Gdański</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="top">
+        <div class="container">
+            <h1>GA Meblobud</h1>
+            <p>Meble na wymiar, remonty i usługi budowlane w województwie pomorskim.<br>Starogard Gdański i okolice.</p>
+            <a href="#work" class="btn btn-primary">Poznaj Zakres Prac</a>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work">
+        <div class="container">
+            <h2>Galeria Projektów</h2>
+            <p>Przykłady naszych realizacji – od kuchni na wymiar po remonty i tarasy.</p>
+            <div class="work-grid row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="card">
+                        <a href="/galeria#kuchnie-1"><img src="images/kitchen.jpg" alt="Kuchnia na wymiar od GA Meblobud" loading="lazy" /></a>
+                        <div class="card-body">
+                            <h3 class="card-title">Kuchnie</h3>
+                            <p class="card-text">Kuchnie na wymiar z okuciami Blum.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <a href="/galeria#sufity-1"><img src="images/ceiling.jpg" alt="Podwieszany sufit w Województwie Pomorskim – GA Meblobud" loading="lazy" /></a>
+                        <div class="card-body">
+                            <h3 class="card-title">Podwieszane Sufity</h3>
+                            <p class="card-text">Sufity podwieszane według specyfikacji klienta.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <a href="/galeria#ściany-1"><img src="images/drywall.jpg" alt="Ściany działowe na wymiar – GA Meblobud Starogard Gdański" loading="lazy" /></a>
+                        <div class="card-body">
+                            <h3 class="card-title">Ściany Działowe</h3>
+                            <p class="card-text">Ściany z izolacją akustyczną.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <a href="/galeria#tarasy-1"><img src="images/taras.jpg" alt="Drewniane tarasy GA Meblobud" loading="lazy" /></a>
+                        <div class="card-body">
+                            <h3 class="card-title">Tarasy</h3>
+                            <p class="card-text">Trwałe tarasy drewniane.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <a href="/galeria#stolarka-1"><img src="images/joinery.jpg" alt="Stolarka na wymiar GA Meblobud" loading="lazy" /></a>
+                        <div class="card-body">
+                            <h3 class="card-title">Stolarka</h3>
+                            <p class="card-text">Zabudowy wnęk i szafy na wymiar.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <a href="/galeria#domki-1"><img src="images/domki.jpg" alt="Domki letniskowe GA Meblobud" loading="lazy" /></a>
+                        <div class="card-body">
+                            <h3 class="card-title">Domki Letniskowe</h3>
+                            <p class="card-text">Funkcjonalne domki z drewna.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="workCarousel" class="carousel slide" data-bs-ride="carousel">
+                <!-- Add Bootstrap native pagination (moved above carousel-inner) -->
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                    <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+                    <button type="button" data-bs-target="#workCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="card">
+                            <a href="/galeria#kuchnie-1"><img src="images/kitchen.jpg" alt="Kuchnia na wymiar od GA Meblobud" class="d-block w-100" loading="lazy" /></a>
+                            <div class="card-body">
+                                <h3 class="card-title">Kuchnie</h3>
+                                <p class="card-text">Kuchnie na wymiar z okuciami Blum.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card">
+                            <a href="/galeria#sufity-1"><img src="images/ceiling.jpg" alt="Podwieszany sufit w Województwie Pomorskim – GA Meblobud" class="d-block w-100" loading="lazy" /></a>
+                            <div class="card-body">
+                                <h3 class="card-title">Podwieszane Sufity</h3>
+                                <p class="card-text">Sufity podwieszane według specyfikacji klienta.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card">
+                            <a href="/galeria#ściany-1"><img src="images/drywall.jpg" alt="Ściany działowe na wymiar – GA Meblobud Starogard Gdański" class="d-block w-100" loading="lazy" /></a>
+                            <div class="card-body">
+                                <h3 class="card-title">Ściany Działowe</h3>
+                                <p class="card-text">Ściany z izolacją akustyczną.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card">
+                            <a href="/galeria#tarasy-1"><img src="images/taras.jpg" alt="Drewniane tarasy GA Meblobud" class="d-block w-100" loading="lazy" /></a>
+                            <div class="card-body">
+                                <h3 class="card-title">Tarasy</h3>
+                                <p class="card-text">Trwałe tarasy drewniane.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card">
+                            <a href="/galeria#stolarka-1"><img src="images/joinery.jpg" alt="Stolarka na wymiar GA Meblobud" class="d-block w-100" loading="lazy" /></a>
+                            <div class="card-body">
+                                <h3 class="card-title">Stolarka</h3>
+                                <p class="card-text">Zabudowy wnęk i szafy na wymiar.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="card">
+                            <a href="/galeria#domki-1"><img src="images/domki.jpg" alt="Domki letniskowe GA Meblobud" class="d-block w-100" loading="lazy" /></a>
+                            <div class="card-body">
+                                <h3 class="card-title">Domki Letniskowe</h3>
+                                <p class="card-text">Funkcjonalne domki z drewna.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Bootstrap native navigation buttons -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#workCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#workCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+            <div class="text-center mt-4">
+                <a href="/galeria" class="btn btn-primary">Przejdź do Galerii</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="o-nas">
+        <div class="container">
+            <h2>O Nas</h2>
+            <p>GA Meblobud to firma z doświadczeniem w stolarstwie i wykończeniach wnętrz w województwie pomorskim. Tworzymy meble na wymiar, kuchnie, tarasy i więcej – zawsze z naciskiem na jakość i funkcjonalność.</p>
+            <p>Skontaktuj się z nami, by omówić Twój projekt! <a href="#contact">Napisz do nas</a>.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2>Kontakt</h2>
+            <p>Skontaktuj się z nami telefonicznie, mailowo lub za pomocą formularza.</p>
+            <div class="text-center mb-4">
+                <p class="intro">✆ (+48) 505 705 338</p>
+                <p class="intro">✉ info@ga-meblobud.pl</p>
+            </div>
+            <form method="post" action="send_email.php">
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="name" placeholder="Imię" required />
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" name="email" placeholder="Email" required />
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="subject" placeholder="Numer Telefonu" required />
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" name="message" placeholder="Wiadomość" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Wyślij</button>
+            </form>
+            <footer class="text-center">
+                <p>GA Meblobud 2025 | <a href="/polityka-prywatnosci">Polityka Prywatności</a></p>
+            </footer>
+        </div>
+    </section>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

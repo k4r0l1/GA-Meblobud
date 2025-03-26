@@ -1,0 +1,30 @@
+// assets/scss/_about.scss
+@use 'variables' as v;
+
+#o-nas { // Changed from .about
+  background-color: v.$secondary-color;
+  padding: 4rem 0; // Adjusted to match original
+  color: v.$light-text;
+  text-align: center; // Added
+
+  .container {
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem; // Adjusted to match
+    }
+
+    p {
+      font-size: 1rem; // Adjusted to match
+      line-height: 1.6;
+      max-width: 800px;
+      margin: 0 auto 1rem;
+      a {
+        color: v.$primary-color;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

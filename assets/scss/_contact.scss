@@ -1,0 +1,113 @@
+// assets/scss/_contact.scss
+@use 'variables' as v;
+@use 'sass:color';
+
+#contact { // 
+  padding: 4rem 0; 
+  background-image: v.$bg-image;
+
+  .container {
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem; 
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+      color: #666;
+      margin-bottom: 2rem;
+      &.intro {
+        font-size: 1.1rem;
+        margin: 0.5rem 0;
+      }
+    }
+
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+
+      .form-control { 
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 1rem;
+        width: 100%;
+        font-size: 1rem;
+        &:focus {
+          border-color: v.$primary-color;
+          box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+      }
+
+      .btn-primary {
+        background-color: v.$primary-color;
+        border: none;
+        padding: 10px 25px;
+        font-size: 1.1rem;
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+        display: block;
+        transition: background-color 0.3s ease;
+        &:hover {
+          background-color: color.adjust(v.$primary-color, $lightness: -10%);
+        }
+      }
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+      text-align: center;
+      a {
+        color: v.$primary-color;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  .popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+  }
+
+  .popup {
+    display: none;
+    position: fixed;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    z-index: 1001;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+
+    p {
+      margin: 0 0 20px;
+      color: #333;
+      font-size: 1.1rem;
+    }
+
+    .btn-secondary {
+      background-color: #6c757d; // Bootstrap default secondary color
+      border: none;
+      padding: 10px 20px;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      &:hover {
+        background-color: darken(#6c757d, 10%);
+      }
+    }
+  }
+}

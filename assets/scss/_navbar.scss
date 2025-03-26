@@ -1,0 +1,47 @@
+// assets/scss/_navbar.scss
+@use 'variables' as v;
+@use 'sass:color';
+
+.navbar {
+  background-color: v.$secondary-color;
+  box-shadow: v.$shadow;
+  &.fixed-top {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+  }  
+  
+  b, strong { // Nav title for Gallery & Privacy
+    font-weight: 300;
+  }
+
+  .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 auto;
+    .nav-link {
+      color: v.$light-text;
+      font-weight: 400;
+      padding: 8px 12px;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+      white-space: nowrap;
+      &:hover {
+        color: v.$primary-color;
+      }
+    }
+  }
+  @media (max-width: 576px) {
+    .navbar-nav .nav-link {
+      padding: 8px 8px;
+      font-size: 0.9rem; 
+    }
+  }
+}

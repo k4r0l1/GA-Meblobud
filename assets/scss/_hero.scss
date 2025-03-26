@@ -1,0 +1,84 @@
+// assets/scss/_hero.scss
+@use 'variables' as v;
+@use 'sass:color';
+
+#top {
+  background: linear-gradient(rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url("/assets/css/images/background.webp") center center / cover no-repeat;
+  color: v.$light-text; // Changed to light text for contrast
+  text-align: center;
+  padding: 6rem 1rem;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+asd
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    animation: fadeInDown 1s ease-out; 
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease-out; 
+  }
+
+  .btn-primary {
+    animation: fadeInUp 1s ease-out; 
+    background-color: v.$primary-color;
+    border: none;
+    padding: 10px 25px;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: color.adjust(v.$primary-color, $lightness: -10%);
+    }
+  }
+    // Responsive font sizes for h1
+  @media (min-width: 1200px) {
+    h1 {
+      font-size: 6rem; // Larger on big screens (xl and up)
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1199px) {
+    h1 {
+      font-size: 5rem; // Medium screens (md to xl)
+    }
+  }
+
+  @media (max-width: 767px) {
+    h1 {
+      font-size: 4rem; // Smaller on tablets (sm to md)
+    }
+  }
+
+  @media (max-width: 576px) {
+    h1 {
+      font-size: 3rem; // Smallest on mobile (xs to sm)
+    }
+  }
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

@@ -1,0 +1,23 @@
+// assets/scss/_footer.scss
+@use 'variables' as v;
+
+footer.bg-dark {
+  background-color: v.$dark-bg;
+  color: v.$light-text;
+  padding: 4rem 0;
+
+  .btn-outline-light {
+    border-color: v.$light-text;
+    color: v.$light-text;
+    font-size: 0.875rem;
+    margin: 0 0.25rem;
+    &:hover {
+      background-color: v.$primary-color;
+      border-color: v.$primary-color;
+    }
+  }
+
+  .small {
+    font-size: 0.875rem;
+  }
+}
