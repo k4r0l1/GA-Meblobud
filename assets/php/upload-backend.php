@@ -11,15 +11,16 @@ header("Content-Type: application/json");
 $captionsFile = $_SERVER['DOCUMENT_ROOT'] . "/assets/data/captions.json";
 $captions = file_exists($captionsFile) ? json_decode(file_get_contents($captionsFile), true) : [];
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"])) {
-    $gallery = $_POST["gallery"] ?? '';
-    $caption = $_POST["caption"] ?? '';
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["images"])) {  // Changed "photo" to "images" to match your form
+    $gallery = $_POST["category"] ?? '';  // Changed "gallery" to "category" to match your form
     $baseDir = $_SERVER['DOCUMENT_ROOT'] . "/gallery images/";
     $targetDir = $baseDir . $gallery . "/";
-    $fileName = time() . "_" . basename($_FILES["photo"]["name"]);
+    $fileName = time() . "_" . basename($_FILES["images"]["name"][0]);  // Assuming multiple files, take first
     $targetFile = $targetDir . $fileName;
-    $fileType = mime_content_type($_FILES["photo"]["tmp_name"]);
+    $fileType = mime_content_type($_FILES["images"]["tmp_name"][0]);
     $allowedTypes = ["image/jpeg", "image/png", "image/gif"];
+
+    error_log("Upload attempt: gallery=$gallery, targetFile=$targetFile");
 
     if (!in_array($gallery, ["domki", "kuchnie", "sciany", "stolarka", "sufity", "tarasy"])) {
         echo json_encode(["success" => false, "message" => "Nieprawidłowa galeria."]);
@@ -31,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"])) {
         ob_end_flush();
         exit();
     }
-    if ($_FILES["photo"]["size"] > 5000000) {
+    if ($_FILES["images"]["size"][0] > 5000000) {
         echo json_encode(["success" => false, "message" => "Plik jest za duży. Maksymalny rozmiar to 5MB."]);
         ob_end_flush();
         exit();
@@ -39,16 +40,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["photo"])) {
 
     if (!is_dir($targetDir)) {
         mkdir($targetDir, 0755, true);
+        error_log("Created directory: $targetDir");
     }
 
-    if (move_uploaded_file($_FILES["photo"]["tmp_name"], $targetFile)) {
-        if (!empty($caption)) {
-            $captions[$gallery][$fileName] = $caption;
-            file_put_contents($captionsFile, json_encode($captions, JSON_PRETTY_PRINT));
-        }
+    if (move_uploaded_file($_FILES["images"]["tmp_name"][0], $targetFile)) {
+        error_log("Upload succeeded: $targetFile");
         echo json_encode(["success" => true, "message" => "Zdjęcie zostało przesłane pomyślnie."]);
     } else {
-        echo json_encode(["success" => false, "message" => "Błąd podczas przesyłania zdjęcia."]);
+        error_log("Upload failed: " . error_get_last()['message']);
+        echo json_encode(["success" => false, "message" => "Błąd podczas przesyłania zdjęcia: " . error_get_last()['message']]);
     }
 } else {
     echo json_encode(["success" => false, "message" => "Nieprawidłowe żądanie."]);

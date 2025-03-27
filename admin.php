@@ -174,17 +174,28 @@ if ($captions === null) {
 
                     // Delete image
                     $imageList.on('click', '.delete-image', function() {
-                        if (!confirm('Czy na pewno chcesz usunąć to zdjęcie?')) return;
                         const $item = $(this).closest('.d-flex');
                         const image = $item.find('input[name="image"]').val();
-                        $.post('assets/php/delete-backend.php', { category: category, image: image }, function(response) {
-                            if (response.success) {
-                                $item.remove();
-                            } else {
-                                alert('Błąd podczas usuwania zdjęcia: ' + (response.error || 'Nieznany błąd'));
-                            }
-                        }, 'json').fail(function() {
-                            alert('Błąd podczas komunikacji z serwerem.');
+
+                        // Show the confirmation modal
+                        $("#deleteFileName").text(image);
+                        $("#deleteConfirmModal").modal("show");
+
+                        // Handle the confirm button click
+                        $("#confirmDeleteBtn").off('click').on('click', function() {
+                            $("#deleteConfirmModal").modal("hide"); // Hide the modal
+
+                            // Proceed with the delete AJAX call
+                            $.post('assets/php/delete-backend.php', { category: category, image: image }, function(response) {
+                                $("#messageText").text(response.success ? "Zdjęcie zostało usunięte." : ('Błąd podczas usuwania zdjęcia: ' + (response.message || 'Nieznany błąd')));
+                                $("#messageModal").modal("show");
+                                if (response.success) {
+                                    $item.remove();
+                                }
+                            }, 'json').fail(function(jqXHR, status, error) {
+                                $("#messageText").text('Błąd podczas komunikacji z serwerem: ' + status);
+                                $("#messageModal").modal("show");
+                            });
                         });
                     });
                 });
@@ -200,18 +211,49 @@ if ($captions === null) {
                     contentType: false,
                     processData: false,
                     success: function(response) {
-                        if (response.success) {
-                            location.reload();
-                        } else {
-                            alert('Błąd podczas przesyłania: ' + (response.error || 'Nieznany błąd'));
-                        }
+                        $("#messageText").text(response.success ? "Zdjęcie zostało przesłane pomyślnie." : ('Błąd podczas przesyłania: ' + (response.message || 'Nieznany błąd')));
+                        $("#messageModal").modal("show");
                     },
-                    error: function() {
-                        alert('Błąd podczas komunikacji z serwerem.');
+                    error: function(jqXHR, status, error) {
+                        $("#messageText").text('Błąd podczas komunikacji z serwerem: ' + status);
+                        $("#messageModal").modal("show");
                     }
                 });
             });
         });
     </script>
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalLabel">Wiadomość</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="messageText"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Zamknij</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteConfirmModalLabel">Potwierdzenie usunięcia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Czy na pewno chcesz usunąć to zdjęcie: <span id="deleteFileName"></span>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Usuń</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
